@@ -1,0 +1,1 @@
+// Lógica específica para a página de perfil (se houver)

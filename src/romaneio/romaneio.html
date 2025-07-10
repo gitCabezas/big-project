@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibras e Cores - Romaneio</title>
+    <link rel="stylesheet" href="../common/style.css">
+    <link rel="stylesheet" href="romaneio.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../assets/Logo_FC_sem_fundo.png" alt="Logo Fibras e Cores" class="logo">
+        </div>
+        <nav>
+            <a href="../receituario/receituario.html" class="nav-button">Receituário</a>
+            <a href="romaneio.html" class="nav-button active">Romaneio</a>
+            <a href="dashboard.html" class="nav-button">Dashboard</a>
+        </nav>
+        <div class="user-info">
+            <a href="../perfil/perfil.html" class="user-link">
+                <span>Nome do Usuário</span>
+                <span>email@example.com</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="shipping-container">
+            <table id="shipping-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Artigo</th>
+                        <th>Tingimento</th>
+                        <th>Valor Unitário (R$/kg)</th>
+                        <th>Peso (kg)</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="main-row">
+                        <td><button class="details-button">Detalhes</button></td>
+                        <td><input type="text" id="shipping-article" name="shipping-article"></td>
+                        <td><input type="text" id="shipping-dyeing" name="shipping-dyeing"></td>
+                        <td><input type="number" id="shipping-unit-price" name="shipping-unit-price" step="0.01" min="0"></td>
+                        <td><input type="number" id="shipping-weight" name="shipping-weight" step="0.01" min="0"></td>
+                        <td><input type="text" id="shipping-subtotal" name="shipping-subtotal" disabled></td>
+                    </tr>
+                    <tr class="details-row hidden-row">
+                        <td><button class="add-detail-row-button">+</button><button class="remove-detail-row-button">-</button></td>
+                        <td colspan="5">
+                            <div class="details-table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Peso Cru</th>
+                                            <th>Peso Acabado</th>
+                                            <th>Peso Líquido</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="number" class="raw-weight-input" step="0.01" min="0"></td>
+                                            <td><input type="number" class="finished-weight-input" step="0.01" min="0"></td>
+                                            <td><input type="number" class="net-weight-input" step="0.01" min="0"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="romaneio.js" type="module"></script>
+</body>
+</html>

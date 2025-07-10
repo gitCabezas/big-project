@@ -1,0 +1,68 @@
+/* Estilos Globais */
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #E2CC99;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Estilos do Cabeçalho */
+header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 1rem;
+    background-color: #806740;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.logo {
+    width: 100px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+nav .nav-button {
+    margin: 0 1rem;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: white;
+    background-color: #806740;
+    border: 1px solid white;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+nav .nav-button:hover, nav .nav-button.active {
+    background-color: #B38F55;
+}
+
+.user-info {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.user-info a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.user-info a:hover, .user-info a.active {
+    background-color: #B38F55;
+}
