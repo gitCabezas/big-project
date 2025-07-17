@@ -5,11 +5,11 @@ import {
   Route
 } from 'react-router-dom';
 import './App.css';
-import Login from './Login';
-import Perfil from './Perfil';
-import Receituario from './Receituario';
-import Romaneio from './Romaneio';
-import Dashboard from './Dashboard';
+import Login from './features/auth/Login';
+import Perfil from './features/perfil/Perfil';
+import Receituario from './features/receituario/Receituario';
+import Romaneio from './features/romaneio/Romaneio';
+import Dashboard from './features/dashboard/Dashboard';
 
 function App() {
   return (

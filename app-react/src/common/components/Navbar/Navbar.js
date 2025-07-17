@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import './Perfil.css'; // Reutilizando o CSS existente para a barra de navegação
-import logo from './Logo_FC_sem_fundo.png';
+import './Navbar.css';
+import logo from '../../../Logo_FC_sem_fundo.png';
 
 const Navbar = () => {
   const location = useLocation();

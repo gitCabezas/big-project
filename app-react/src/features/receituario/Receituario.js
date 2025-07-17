@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
-import Navbar from './Navbar';
+import Navbar from '../../common/components/Navbar/Navbar';
 import './Receituario.css';
-import './Perfil.css';
-
-const RecipeModal = ({ recipeType, show, onClose }) => {
-    if (!show) {
-        return null;
-    }
+import RecipeModal from './RecipeModal';
 
     const data = [
         { codigo: 'INS001', concentracao: '10%', insumo: 'Insumo A', quantidade: '100g', observacoes: 'Obs A' },

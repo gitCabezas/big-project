@@ -1,6 +1,5 @@
 import React from 'react';
-import Navbar from './Navbar';
-import './Perfil.css';
+import Navbar from '../../common/components/Navbar/Navbar';
 
 const Perfil = () => {
   const handleSubmit = (event) => {
