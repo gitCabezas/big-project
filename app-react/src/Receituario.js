@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import Navbar from './Navbar';
 import './Receituario.css';
+import './Perfil.css';
 
 const RecipeModal = ({ recipeType, show, onClose }) => {
     if (!show) {
@@ -84,8 +86,9 @@ const Receituario = () => {
 
     return (
         <main>
+            <Navbar />
             <div className="recipe-container">
-                <h2>Criar Nova Receita</h2>
+                
                 <form>
                     <div className="form-grid">
                         <div className="input-group">

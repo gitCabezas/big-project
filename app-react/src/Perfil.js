@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Navbar from './Navbar';
 import './Perfil.css';
-import logo from './Logo_FC_sem_fundo.png';
 
 const Perfil = () => {
   const handleSubmit = (event) => {
@@ -12,20 +11,7 @@ const Perfil = () => {
 
   return (
     <div>
-      <header className="navbar">
-        <img src={logo} alt="Logo da Empresa" className="logo" />
-        <nav>
-          <Link to="/receituario" className="nav-button">Receituário</Link>
-          <Link to="/romaneio" className="nav-button">Romaneio</Link>
-          <Link to="/dashboard" className="nav-button">Dashboard</Link>
-        </nav>
-        <Link to="/perfil" className="nav-button user-profile-button">
-          <div className="user-info">
-            <span>Nome do Usuário</span>
-            <span>email@example.com</span>
-          </div>
-        </Link>
-      </header>
+      <Navbar />
       <div className="profile-container">
         <h2>Alterar Senha</h2>
         <form onSubmit={handleSubmit}>

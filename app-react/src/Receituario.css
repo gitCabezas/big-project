@@ -1,11 +1,10 @@
 main {
-    display: flex;
-    justify-content: center;
-    padding: 2rem;
+
 }
 
 .recipe-container {
     width: 80%;
+    margin: 2rem auto 0;
 }
 
 h2 {
@@ -36,6 +35,11 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.recipe-buttons {
+    display: flex;
+    gap: 1rem;
 }
 
 #cost-button, .recipe-type-button {

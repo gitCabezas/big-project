@@ -23,6 +23,10 @@
     background-color: #B38F55;
 }
 
+.nav-button.active {
+    background-color: #E2CC99;
+}
+
 .user-info {
     color: white;
     font-size: 0.9rem;
