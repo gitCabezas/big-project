@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginForm) {
         loginForm.addEventListener('submit', (event) => {
             event.preventDefault();
-            window.location.href = '../perfil/perfil.html';
+            window.location.href = 'src/perfil/perfil.html';
         });
     }
 });
