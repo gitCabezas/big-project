@@ -2,3 +2,64 @@
     width: 80%;
     margin: 2rem auto 0;
 }
+
+.title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.romaneio-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+.romaneio-table th,
+.romaneio-table td {
+    border: 1px solid black;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.romaneio-table input {
+    width: 100%;
+    border: none;
+    padding: 0.25rem;
+}
+
+.table-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.add-row-button,
+.remove-row-button,
+.details-button {
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+    color: white;
+    border: none;
+    cursor: pointer;
+    background-color: #806740;
+}
+
+.details-row {
+    background-color: #c9ab7a;
+}
+
+.details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+.details-table th, .details-table td {
+    border: 1px solid #333;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.total-container {
+    text-align: right;
+}
