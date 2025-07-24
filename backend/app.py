@@ -6,7 +6,7 @@ from routes.user_routes import user_bp
 from dotenv import load_dotenv
 
 load_dotenv()
-
+# Initialize Flask application
 app = Flask(__name__)
 app.config.from_object(Config)
 
