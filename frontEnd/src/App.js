@@ -9,7 +9,7 @@ import Login from './features/auth/Login';
 import Perfil from './features/perfil/Perfil';
 import Receituario from './features/receituario/Receituario';
 import Romaneio from './features/romaneio/Romaneio';
-import Dashboard from './features/dashboard/Dashboard';
+
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/receituario" element={<Receituario />} />
           <Route path="/romaneio" element={<Romaneio />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          
         </Routes>
       </div>
     </Router>

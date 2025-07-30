@@ -13,7 +13,25 @@ const Perfil = () => {
       <Navbar />
       <div className="profile-container">
         <h2>Alterar Senha</h2>
-        <form onSubmit={handleSubmit}>
+        <style>
+          {`
+            .profile-form {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
+            .profile-form .input-group {
+              width: 50%;
+              margin-bottom: 15px;
+            }
+            .profile-form input {
+              width: 100%;
+              padding: 8px;
+              box-sizing: border-box;
+            }
+          `}
+        </style>
+        <form onSubmit={handleSubmit} className="profile-form">
           <div className="input-group">
             <label htmlFor="current-password">Senha Atual</label>
             <input type="password" id="current-password" name="current-password" />

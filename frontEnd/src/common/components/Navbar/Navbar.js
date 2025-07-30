@@ -16,9 +16,7 @@ const Navbar = () => {
         <Link to="/romaneio" className={`nav-button ${location.pathname === '/romaneio' ? 'active' : ''}`}>
           Romaneio
         </Link>
-        <Link to="/dashboard" className={`nav-button ${location.pathname === '/dashboard' ? 'active' : ''}`}>
-          Dashboard
-        </Link>
+        
       </nav>
       <Link to="/perfil" className={`nav-button user-profile-button ${location.pathname === '/perfil' ? 'active' : ''}`}>
         <div className="user-info">

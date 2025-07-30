@@ -8,6 +8,7 @@ from routes.raw_material_routes import raw_material_bp
 from routes.dye_routes import dye_bp
 from routes.chemical_input_routes import chemical_input_bp
 from routes.color_routes import color_bp
+from routes.recipe_routes import recipe_bp
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -26,6 +27,7 @@ app.register_blueprint(raw_material_bp, url_prefix='/api/raw_materials')
 app.register_blueprint(dye_bp, url_prefix='/api/dyes')
 app.register_blueprint(chemical_input_bp, url_prefix='/api/chemical_inputs')
 app.register_blueprint(color_bp, url_prefix='/api/colors')
+app.register_blueprint(recipe_bp, url_prefix='/api/recipes')
 
 @app.cli.command("create-all")
 def create_all():
