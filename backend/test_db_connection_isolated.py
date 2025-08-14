@@ -6,11 +6,11 @@ load_dotenv()
 
 try:
     conn = psycopg2.connect(
-        dbname=os.environ.get("DB_NAME"),
-        user=os.environ.get("DB_USER"),
-        password=os.environ.get("DB_PASSWORD"),
-        host=os.environ.get("DB_HOST"),
-        port=os.environ.get("DB_PORT"),
+        dbname=os.environ.get("dbname"),
+        user=os.environ.get("user"),
+        password=os.environ.get("password"),
+        host=os.environ.get("host"),
+        port=os.environ.get("port"),
         connect_timeout=10
     )
     print("Conexão com o banco de dados (psycopg2) estabelecida com sucesso!")
