@@ -1,14 +1,13 @@
 import pytest
-from app import app # Import the app instance directly
-from models import db # Import db from models
+from app import app, db
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='function') # Changed scope to function
 def test_client():
-    # Use the existing app instance
-    testing_client = app.test_client()
+    flask_app = app
+    testing_client = flask_app.test_client()
 
-    # Establish an application context before running the tests.
-    with app.app_context():
-        db.create_all()  # Create tables
-        yield testing_client  # this is where the testing happens!
-        db.drop_all()  # Drop tables
+    with flask_app.app_context():
+        db.create_all()  # Create tables for each test function
+        yield testing_client
+        db.session.remove() # Clean up the session
+        db.drop_all()  # Drop tables after each test function

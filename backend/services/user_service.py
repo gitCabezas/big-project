@@ -7,9 +7,9 @@ def get_all_users():
 def get_user_by_id(user_id):
     return User.query.get(user_id)
 
-def create_user(username, password):
+def create_user(username, email, password):
     hashed_password = generate_password_hash(password)
-    new_user = User(username=username, password_hash=hashed_password)
+    new_user = User(username=username, email=email, password_hash=hashed_password)
     db.session.add(new_user)
     db.session.commit()
     return new_user
@@ -19,6 +19,8 @@ def update_user(user_id, data):
     if user:
         if 'username' in data:
             user.username = data['username']
+        if 'email' in data:
+            user.email = data['email']
         if 'password' in data:
             user.password_hash = generate_password_hash(data['password'])
         db.session.commit()
