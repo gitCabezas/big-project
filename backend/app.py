@@ -36,6 +36,22 @@ def create_all():
         db.create_all()
     print("Database tables created!")
 
+@app.cli.command("create-user")
+def create_user_cli():
+    """Cria um novo usuário administrador no banco de dados."""
+    username = input("Digite o nome de usuário: ")
+    email = input("Digite o email: ")
+    password = input("Digite a senha: ")
+
+    with app.app_context():
+        # Importar o user_service aqui para evitar circular imports no topo
+        from services.user_service import create_user
+        try:
+            user = create_user(username, email, password)
+            print(f"Usuário '{user.username}' criado com sucesso! ID: {user.id}")
+        except Exception as e:
+            print(f"Erro ao criar usuário: {e}")
+
 @app.route('/')
 def home():
     return jsonify({"message": "Welcome to the Backend API!"})
