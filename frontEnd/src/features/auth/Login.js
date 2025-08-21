@@ -25,8 +25,7 @@ const Login = () => {
 
       if (response.ok) {
         const data = await response.json();
-        // You can save the token to localStorage if you plan to use it
-        // localStorage.setItem('token', data.token);
+        localStorage.setItem('token', data.token);
         navigate('/perfil');
       } else {
         const errorData = await response.json();

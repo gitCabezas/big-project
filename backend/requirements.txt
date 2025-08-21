@@ -6,3 +6,5 @@ pytest
 pytest-flask
 black
 isort
+flask-restx
+PyJWT

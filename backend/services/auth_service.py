@@ -1,7 +1,8 @@
 from models.user_model import User, db
 from werkzeug.security import generate_password_hash, check_password_hash
-# import jwt # Para JWT, você precisaria instalar PyJWT e configurar uma chave secreta
-# from datetime import datetime, timedelta
+import jwt
+from datetime import datetime, timedelta
+from flask import current_app
 
 def register_user(username, password):
     if User.query.filter_by(username=username).first():
@@ -14,17 +15,24 @@ def register_user(username, password):
     return new_user
 
 def login_user(username, password):
-    print(f"DEBUG: login_user - Received username: {username}, password: {password}")
     user = User.query.filter_by(username=username).first()
-    print(f"DEBUG: login_user - User found: {user is not None}")
+    print(f"Attempting login for user: {username}")
     if user:
-        print(f"DEBUG: login_user - Password check result: {check_password_hash(user.password_hash, password)}")
-    if user and check_password_hash(user.password_hash, password):
-        # Exemplo de geração de token JWT (requer PyJWT e SECRET_KEY em config.py)
-        # token = jwt.encode({
-        #     'user_id': user.id,
-        #     'exp': datetime.utcnow() + timedelta(minutes=30)
-        # }, app.config['SECRET_KEY'], algorithm='HS256')
-        # return token
-        return "dummy_token_for_now" # Retorna um token dummy por enquanto
+        print(f"User found: {user.username}")
+        print(f"Password from input: {password}")
+        print(f"Stored hash: {user.password_hash}")
+        password_match = check_password_hash(user.password_hash, password)
+        print(f"Password match result: {password_match}")
+        if password_match:
+        payload = {
+            'user_id': user.id,
+            'username': user.username,
+            'exp': datetime.utcnow() + timedelta(minutes=30)
+        }
+        token = jwt.encode(
+            payload,
+            current_app.config['SECRET_KEY'],
+            algorithm='HS256'
+        )
+        return token
     return None
