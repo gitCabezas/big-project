@@ -28,7 +28,7 @@ class Login(Resource): # Define a Resource class
 
         token = login_user(username, password)
         if token:
-            return jsonify({"message": "Login successful", "token": token}), 200
+            return {"message": "Login successful", "token": token}, 200
         auth_ns.abort(401, message="Invalid credentials") # Use abort for consistent error responses
 
 # The register route remains commented out as per previous discussion

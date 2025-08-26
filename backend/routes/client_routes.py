@@ -65,6 +65,15 @@ class Client(Resource):
             client_ns.abort(404, 'Client not found')
         return updated_client
 
+    @client_ns.doc('delete_client')
+    @client_ns.response(200, 'Client deactivated')
+    def delete(self, client_id):
+        '''Deactivate a client given its identifier'''
+        deactivated_client = client_service.deactivate_client(client_id)
+        if not deactivated_client:
+            client_ns.abort(404, 'Client not found')
+        return deactivated_client, 200
+
 @client_ns.route('/<int:client_id>/deactivate')
 @client_ns.response(404, 'Client not found')
 class ClientDeactivate(Resource):

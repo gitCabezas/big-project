@@ -28,6 +28,7 @@ user_update_model = user_ns.model('UserUpdate', {
 @user_ns.route('/')
 class UserList(Resource):
     @user_ns.doc('list_users')
+    @jwt_required
     @user_ns.marshal_list_with(user_model)
     def get(self):
         '''List all users'''

@@ -24,15 +24,15 @@ def login_user(username, password):
         password_match = check_password_hash(user.password_hash, password)
         print(f"Password match result: {password_match}")
         if password_match:
-        payload = {
-            'user_id': user.id,
-            'username': user.username,
-            'exp': datetime.utcnow() + timedelta(minutes=30)
-        }
-        token = jwt.encode(
-            payload,
-            current_app.config['SECRET_KEY'],
-            algorithm='HS256'
-        )
-        return token
+            payload = {
+                'user_id': user.id,
+                'username': user.username,
+                'exp': datetime.utcnow() + timedelta(minutes=30)
+            }
+            token = jwt.encode(
+                payload,
+                current_app.config['SECRET_KEY'],
+                algorithm='HS256'
+            )
+            return token
     return None

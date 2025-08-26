@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask
 from flask_restx import Api, Namespace # Import Api and Namespace
 from config import Config
 from models import db
@@ -11,6 +11,7 @@ from routes.dye_routes import dye_ns
 from routes.chemical_input_routes import chemical_input_ns
 from routes.color_routes import color_ns
 from routes.recipe_routes import recipe_ns
+from routes.home_routes import home_ns
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -31,6 +32,7 @@ api = Api(
 )
 
 # Add namespaces to the API
+api.add_namespace(home_ns, path='/')
 api.add_namespace(auth_ns, path='/auth')
 api.add_namespace(user_ns, path='/api/users')
 api.add_namespace(client_ns, path='/api/clients')
@@ -63,9 +65,7 @@ def create_user_cli():
         except Exception as e:
             print(f"Erro ao criar usuário: {e}")
 
-@app.route('/')
-def home():
-    return jsonify({"message": "Welcome to the Backend API!"})
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
