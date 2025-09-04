@@ -7,6 +7,9 @@ def get_all_users():
 def get_user_by_id(user_id):
     return User.query.get(user_id)
 
+def get_user_by_username(username):
+    return User.query.filter_by(username=username).first()
+
 def create_user(username, email, password):
     hashed_password = generate_password_hash(password)
     new_user = User(username=username, email=email, password_hash=hashed_password)

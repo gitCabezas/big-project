@@ -13,7 +13,15 @@ recipe_model = recipe_ns.model('Recipe', {
     'process': fields.String(description='The process type of the recipe'),
     'substrate': fields.String(description='The substrate used in the recipe'),
     'machine': fields.String(description='The machine used for the recipe'),
-    'weight': fields.Float(description='The weight for the recipe')
+    'weight': fields.Float(description='The weight for the recipe'),
+    'dyes': fields.List(fields.Nested(recipe_ns.model('RecipeDye', {
+        'dye_id': fields.Integer(required=True),
+        'quantity': fields.Float(required=True)
+    }))),
+    'chemical_inputs': fields.List(fields.Nested(recipe_ns.model('RecipeChemicalInput', {
+        'chemical_input_id': fields.Integer(required=True),
+        'quantity': fields.Float(required=True)
+    })))
 })
 
 recipe_create_model = recipe_ns.model('RecipeCreate', {
@@ -23,7 +31,15 @@ recipe_create_model = recipe_ns.model('RecipeCreate', {
     'process': fields.String(description='The process type of the recipe'),
     'substrate': fields.String(description='The substrate used in the recipe'),
     'machine': fields.String(description='The machine used for the recipe'),
-    'weight': fields.Float(description='The weight for the recipe')
+    'weight': fields.Float(description='The weight for the recipe'),
+    'dyes': fields.List(fields.Nested(recipe_ns.model('RecipeDyeCreate', {
+        'dye_id': fields.Integer(required=True),
+        'quantity': fields.Float(required=True)
+    }))),
+    'chemical_inputs': fields.List(fields.Nested(recipe_ns.model('RecipeChemicalInputCreate', {
+        'chemical_input_id': fields.Integer(required=True),
+        'quantity': fields.Float(required=True)
+    })))
 })
 
 recipe_update_model = recipe_ns.model('RecipeUpdate', {

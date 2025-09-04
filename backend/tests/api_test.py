@@ -1,12 +1,13 @@
 import json
 from services.user_service import create_user
+from models import db # Import db
 
 # Helper function to get an auth token
 def get_auth_header(test_client, username="api_test_user", email="apitest@user.com", password="password"):
     try:
         create_user(username, email, password)
     except Exception:
-        pass
+        db.session.rollback() # Rollback the session in case of error
     
     login_response = test_client.post(
         '/auth/login',

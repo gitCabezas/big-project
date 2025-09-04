@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from flask_restx import Namespace, Resource, fields, reqparse # Import Namespace, Resource, fields, reqparse
-from services.user_service import get_all_users, get_user_by_id, create_user, update_user, delete_user
+from services.user_service import get_all_users, get_user_by_id, create_user, update_user, delete_user, get_user_by_username
+from flask_jwt_extended import jwt_required, get_jwt_identity
 # from utils.decorators import token_required # Exemplo de importação de decorator
 
 user_ns = Namespace('users', description='User operations') # Use Namespace
@@ -25,17 +26,31 @@ user_update_model = user_ns.model('UserUpdate', {
     'password': fields.String(description='The updated password of the user')
 })
 
+@user_ns.route('/profile/me')
+class UserProfile(Resource):
+    @user_ns.doc('get_current_user_profile')
+    @jwt_required()
+    @user_ns.marshal_with(user_model)
+    def get(self):
+        '''Fetch the profile of the currently logged-in user'''
+        current_user_id = get_jwt_identity()
+        user = get_user_by_id(current_user_id)
+        if user:
+            return user
+        user_ns.abort(404, message="User not found")
+
 @user_ns.route('/')
 class UserList(Resource):
     @user_ns.doc('list_users')
-    @jwt_required
+    @jwt_required()
     @user_ns.marshal_list_with(user_model)
     def get(self):
         '''List all users'''
         users = get_all_users()
-        return [user.to_dict() for user in users]
+        return users
 
     @user_ns.doc('create_user')
+    @jwt_required()
     @user_ns.expect(user_create_model, validate=True)
     @user_ns.marshal_with(user_model, code=201)
     def post(self):
@@ -48,21 +63,23 @@ class UserList(Resource):
             user_ns.abort(400, message="Username, email and password are required")
 
         user = create_user(username, email, password) # Updated create_user call
-        return user.to_dict(), 201
+        return user, 201
 
 @user_ns.route('/<int:user_id>')
 @user_ns.response(404, 'User not found')
 class User(Resource):
     @user_ns.doc('get_user')
+    @jwt_required()
     @user_ns.marshal_with(user_model)
     def get(self, user_id):
         '''Fetch a user given its identifier'''
         user = get_user_by_id(user_id)
         if user:
-            return user.to_dict()
+            return user
         user_ns.abort(404, message="User not found")
 
     @user_ns.doc('update_user')
+    @jwt_required()
     @user_ns.expect(user_update_model, validate=True)
     @user_ns.marshal_with(user_model)
     def put(self, user_id):
@@ -70,10 +87,11 @@ class User(Resource):
         data = request.get_json()
         updated_user = update_user(user_id, data)
         if updated_user:
-            return updated_user.to_dict()
+            return updated_user
         user_ns.abort(404, message="User not found")
 
     @user_ns.doc('delete_user')
+    @jwt_required()
     @user_ns.response(204, 'User deleted successfully')
     def delete(self, user_id):
         '''Delete a user given its identifier'''

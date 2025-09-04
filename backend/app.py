@@ -2,6 +2,8 @@ from flask import Flask
 from flask_restx import Api, Namespace # Import Api and Namespace
 from config import Config
 from models import db
+from flask_jwt_extended import JWTManager
+from flask_jwt_extended.exceptions import NoAuthorizationError
 # Import namespaces instead of blueprints
 from routes.auth_routes import auth_ns
 from routes.user_routes import user_ns
@@ -21,6 +23,7 @@ app.config.from_object(Config)
 
 # Initialize extensions
 db.init_app(app)
+jwt = JWTManager(app)
 
 # Initialize Flask-RESTX Api
 api = Api(
@@ -30,6 +33,10 @@ api = Api(
     description='API para o sistema de gerenciamento de receitas e romaneios.',
     doc='/docs' # This sets the Swagger UI documentation endpoint
 )
+
+@api.errorhandler(NoAuthorizationError)
+def handle_no_authorization_error(error):
+    return {'message': str(error)}, 401
 
 # Add namespaces to the API
 api.add_namespace(home_ns, path='/')

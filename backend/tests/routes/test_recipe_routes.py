@@ -29,7 +29,7 @@ def test_recipe_crud(test_client, setup_dependencies):
 
     # Create
     payload = {
-        "code": "REC-001",
+        "name": "REC-001",
         "client_id": deps["client_id"],
         "color_id": deps["color_id"],
         "raw_material_id": deps["raw_material_id"],
@@ -45,7 +45,7 @@ def test_recipe_crud(test_client, setup_dependencies):
     response = test_client.get(f'/api/recipes/{recipe_id}', headers=headers)
     assert response.status_code == 200
     retrieved_data = json.loads(response.data)
-    assert retrieved_data['code'] == 'REC-001'
+    assert retrieved_data['name'] == 'REC-001'
     assert len(retrieved_data['dyes']) == 1
 
     # Delete

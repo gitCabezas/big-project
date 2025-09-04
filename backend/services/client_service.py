@@ -48,3 +48,13 @@ def deactivate_client(client_id):
     client.is_active = False
     db.session.commit()
     return client.to_dict()
+
+def delete_client(client_id):
+    """Deleta um cliente (hard delete)."""
+    client = Client.query.get(client_id)
+    if not client:
+        return None
+
+    db.session.delete(client)
+    db.session.commit()
+    return True

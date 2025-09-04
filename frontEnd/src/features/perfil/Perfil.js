@@ -1,53 +1,72 @@
-import React from 'react';
-import Navbar from '../../common/components/Navbar/Navbar';
+
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Paper, CircularProgress, Alert } from '@mui/material';
 
 const Perfil = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    alert('Senha alterada com sucesso!');
-    event.target.reset();
-  };
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('Token de autenticação não encontrado. Por favor, faça login novamente.');
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/users/profile/me', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Falha ao buscar dados do perfil.');
+        }
+
+        const data = await response.json();
+        setUserData(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return <Alert severity="error">{error}</Alert>;
+  }
 
   return (
-    <div>
-      <Navbar />
-      <div className="profile-container">
-        <h2>Alterar Senha</h2>
-        <style>
-          {`
-            .profile-form {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-            }
-            .profile-form .input-group {
-              width: 50%;
-              margin-bottom: 15px;
-            }
-            .profile-form input {
-              width: 100%;
-              padding: 8px;
-              box-sizing: border-box;
-            }
-          `}
-        </style>
-        <form onSubmit={handleSubmit} className="profile-form">
-          <div className="input-group">
-            <label htmlFor="current-password">Senha Atual</label>
-            <input type="password" id="current-password" name="current-password" />
-          </div>
-          <div className="input-group">
-            <label htmlFor="new-password">Nova Senha</label>
-            <input type="password" id="new-password" name="new-password" />
-          </div>
-          <div className="input-group">
-            <label htmlFor="confirm-password">Confirmar Nova Senha</label>
-            <input type="password" id="confirm-password" name="confirm-password" />
-          </div>
-          <button type="submit" className="save-button">Salvar</button>
-        </form>
-      </div>
-    </div>
+    <Paper elevation={3} sx={{ p: 3 }}>
+      <Typography variant="h4" gutterBottom>
+        Perfil do Usuário
+      </Typography>
+      {userData ? (
+        <Box>
+          <Typography variant="h6" sx={{ mt: 2 }}><strong>ID:</strong> {userData.id}</Typography>
+          <Typography variant="h6" sx={{ mt: 2 }}><strong>Username:</strong> {userData.username}</Typography>
+          <Typography variant="h6" sx={{ mt: 2 }}><strong>Email:</strong> {userData.email}</Typography>
+        </Box>
+      ) : (
+        <Typography>Nenhum dado de usuário para exibir.</Typography>
+      )}
+    </Paper>
   );
 };
 

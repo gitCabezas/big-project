@@ -29,7 +29,7 @@ class Login(Resource): # Define a Resource class
         token = login_user(username, password)
         if token:
             return {"message": "Login successful", "token": token}, 200
-        auth_ns.abort(401, message="Invalid credentials") # Use abort for consistent error responses
+        return {'message': 'Credenciais inválidas'}, 401
 
 # The register route remains commented out as per previous discussion
 # @auth_ns.route('/register')

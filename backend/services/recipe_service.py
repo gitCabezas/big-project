@@ -1,5 +1,7 @@
 from models import db
 from models.recipe_model import Recipe
+from models.recipe_dye_model import RecipeDye
+from models.recipe_chemical_input_model import RecipeChemicalInput
 
 def get_all_recipes():
     """Busca todos os receituários."""
@@ -24,6 +26,26 @@ def create_recipe(recipe_data):
         status=recipe_data.get('status', 'rascunho')
     )
     db.session.add(new_recipe)
+    db.session.flush()  # Flush to get the new_recipe.id
+
+    if 'dyes' in recipe_data:
+        for dye_data in recipe_data['dyes']:
+            new_recipe_dye = RecipeDye(
+                recipe_id=new_recipe.id,
+                dye_id=dye_data['dye_id'],
+                quantity=dye_data['quantity']
+            )
+            db.session.add(new_recipe_dye)
+
+    if 'chemical_inputs' in recipe_data:
+        for chemical_input_data in recipe_data['chemical_inputs']:
+            new_recipe_chemical_input = RecipeChemicalInput(
+                recipe_id=new_recipe.id,
+                chemical_input_id=chemical_input_data['chemical_input_id'],
+                quantity=chemical_input_data['quantity']
+            )
+            db.session.add(new_recipe_chemical_input)
+
     db.session.commit()
     return new_recipe.to_dict()
 

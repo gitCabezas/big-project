@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from flask_restx import Namespace, Resource, fields
 from services import client_service
+from flask_jwt_extended import jwt_required
 
 client_ns = Namespace('clients', description='Client operations')
 
@@ -25,6 +26,7 @@ client_update_model = client_ns.model('ClientUpdate', {
 @client_ns.route('/')
 class ClientList(Resource):
     @client_ns.doc('list_clients')
+    @jwt_required()
     @client_ns.marshal_list_with(client_model)
     def get(self):
         '''List all clients'''
@@ -32,6 +34,7 @@ class ClientList(Resource):
         return clients
 
     @client_ns.doc('create_client')
+    @jwt_required()
     @client_ns.expect(client_create_model, validate=True)
     @client_ns.marshal_with(client_model, code=201)
     def post(self):
@@ -46,6 +49,7 @@ class ClientList(Resource):
 @client_ns.response(404, 'Client not found')
 class Client(Resource):
     @client_ns.doc('get_client')
+    @jwt_required()
     @client_ns.marshal_with(client_model)
     def get(self, client_id):
         '''Fetch a client given its identifier'''
@@ -55,6 +59,7 @@ class Client(Resource):
         return client
 
     @client_ns.doc('update_client')
+    @jwt_required()
     @client_ns.expect(client_update_model, validate=True)
     @client_ns.marshal_with(client_model)
     def put(self, client_id):
@@ -66,18 +71,19 @@ class Client(Resource):
         return updated_client
 
     @client_ns.doc('delete_client')
-    @client_ns.response(200, 'Client deactivated')
+    @jwt_required()
+    @client_ns.response(204, 'Client deleted')
     def delete(self, client_id):
-        '''Deactivate a client given its identifier'''
-        deactivated_client = client_service.deactivate_client(client_id)
-        if not deactivated_client:
+        '''Delete a client given its identifier'''
+        if not client_service.delete_client(client_id):
             client_ns.abort(404, 'Client not found')
-        return deactivated_client, 200
+        return '', 204
 
 @client_ns.route('/<int:client_id>/deactivate')
 @client_ns.response(404, 'Client not found')
 class ClientDeactivate(Resource):
     @client_ns.doc('deactivate_client')
+    @jwt_required()
     @client_ns.marshal_with(client_model)
     def put(self, client_id):
         '''Deactivate a client given its identifier'''

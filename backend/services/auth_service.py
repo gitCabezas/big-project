@@ -1,8 +1,6 @@
 from models.user_model import User, db
 from werkzeug.security import generate_password_hash, check_password_hash
-import jwt
-from datetime import datetime, timedelta
-from flask import current_app
+from flask_jwt_extended import create_access_token
 
 def register_user(username, password):
     if User.query.filter_by(username=username).first():
@@ -16,23 +14,7 @@ def register_user(username, password):
 
 def login_user(username, password):
     user = User.query.filter_by(username=username).first()
-    print(f"Attempting login for user: {username}")
-    if user:
-        print(f"User found: {user.username}")
-        print(f"Password from input: {password}")
-        print(f"Stored hash: {user.password_hash}")
-        password_match = check_password_hash(user.password_hash, password)
-        print(f"Password match result: {password_match}")
-        if password_match:
-            payload = {
-                'user_id': user.id,
-                'username': user.username,
-                'exp': datetime.utcnow() + timedelta(minutes=30)
-            }
-            token = jwt.encode(
-                payload,
-                current_app.config['SECRET_KEY'],
-                algorithm='HS256'
-            )
-            return token
+    if user and check_password_hash(user.password_hash, password):
+        token = create_access_token(identity=str(user.id)) # Convert user.id to string
+        return token
     return None
