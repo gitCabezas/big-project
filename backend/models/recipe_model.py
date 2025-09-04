@@ -34,7 +34,9 @@ class Recipe(db.Model):
             'weight_kg': self.weight_kg,
             'status': self.status,
             'created_at': self.created_at.isoformat(),
-            'updated_at': self.updated_at.isoformat()
+            'updated_at': self.updated_at.isoformat(),
+            'dyes': [rd.to_dict() for rd in self.recipe_dyes],
+            'chemical_inputs': [rci.to_dict() for rci in self.recipe_chemical_inputs]
         }
 
     def __repr__(self):
