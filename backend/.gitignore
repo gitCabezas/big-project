@@ -1,5 +1,3 @@
-# Ignora o ambiente virtual e os caches de execução do servidor
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.pyc
