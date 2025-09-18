@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from '../../common/components/Navbar/Navbar';
+
 import './Receituario.css';
 import RecipeModal from './RecipeModal';
 
@@ -31,7 +31,7 @@ const Receituario = () => {
 
     return (
         <main>
-            <Navbar />
+            
             <div className="recipe-container">
                 
                 <form>

@@ -8,3 +8,4 @@ black
 isort
 flask-restx
 PyJWT
+Flask-JWT-Extended

@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import Navbar from '../../common/components/Navbar/Navbar';
+
 import './Romaneio.css';
 
 const Romaneio = () => {
@@ -61,7 +61,7 @@ const Romaneio = () => {
 
   return (
     <div>
-      <Navbar />
+      
       <div className="content-container">
         <table className="romaneio-table">
           <thead>
