@@ -9,3 +9,4 @@ black
 isort
 flask-restx
 PyJWT
+Flask-SocketIO==5.3.6

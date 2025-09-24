@@ -4,6 +4,7 @@ from config import Config
 from models import db
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended.exceptions import NoAuthorizationError
+from flask_socketio import SocketIO
 # Import namespaces instead of blueprints
 from routes.auth_routes import auth_ns
 from routes.user_routes import user_ns
@@ -24,6 +25,7 @@ app.config.from_object(Config)
 # Initialize extensions
 db.init_app(app)
 jwt = JWTManager(app)
+socketio = SocketIO(app, cors_allowed_origins="http://localhost:3000")
 
 # Initialize Flask-RESTX Api
 api = Api(
@@ -48,6 +50,10 @@ api.add_namespace(dye_ns, path='/api/dyes')
 api.add_namespace(chemical_input_ns, path='/api/chemical_inputs')
 api.add_namespace(color_ns, path='/api/colors')
 api.add_namespace(recipe_ns, path='/api/recipes')
+
+@socketio.on('connect')
+def handle_connect():
+    print('Client connected')
 
 @app.cli.command("create-all")
 def create_all():
@@ -75,4 +81,4 @@ def create_user_cli():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    socketio.run(app, host='0.0.0.0', debug=True)
